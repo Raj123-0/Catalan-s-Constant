@@ -1,34 +1,51 @@
+# Catalan S Constant
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![CI](https://github.com/Raj123-0/Catalan-s-Constant/actions/workflows/ci.yml/badge.svg)](https://github.com/Raj123-0/Catalan-s-Constant/actions)
 
-===============================================================================
-PROJECT: Catalan's Constant Computation Engine
-===============================================================================
 
-OVERVIEW:
-Calculates Catalan's constant (G ≈ 0.91596559417721901505...) to arbitrary 
-precision (N digits) using the Zucker-Bradley series, exact-integer binary 
-splitting, and C-accelerated gmpy2 arithmetic.
+High-precision mathematical computation and OEIS digit generator for Catalan S Constant.
 
-ALGORITHM & MATHEMATICS:
-- Zucker-Bradley Series:
-    G = (pi/8) * ln(2 + sqrt(3)) + (3/8) * sum_{n>=0} 1 / ((2n+1)^2 * C(2n,n))
-  where C(2n, n) is the central binomial coefficient.
-- Geometric Convergence: terms decay like ~4^-n (about 1.7 terms per digit).
-- Binary Splitting: the series is summed in exact integer arithmetic and
-  collapses to a single fraction T/Q, requiring one final high-precision
-  division.
+## Overview
 
-NOTE: the previously documented "Ramanujan-Guillera" formula was
-mathematically invalid (it diverges), and the previous code computed it
-but discarded the result — digits came from mpmath's built-in catalan.
-Both are now correct and actually used.
+`Catalan-s-Constant` implements high-precision evaluation of the **Catalan S Constant** using arbitrary-precision mathematical routines (`mpmath` and C-accelerated `gmpy2`). The engine generates exact decimal digits, formats standard OEIS b-file sequences, and includes an automated performance benchmark.
+
+## Features
+
+- **Arbitrary-Precision Calculation**: Configurable digit targets with optimized guard precision.
+- **OEIS b-file Output**: Generates 1-based index sequence files ready for OEIS submission.
+- **Performance Profiling**: Built-in benchmark suite to evaluate digits/sec scaling.
+- **Robust CLI**: Easy command-line interface with argument parsing.
+
+## Installation
+
+```bash
+git clone https://github.com/Raj123-0/Catalan-s-Constant.git
+cd Catalan-s-Constant
+pip install -r requirements.txt
+```
 
 ## Usage
 
+Calculate digits with the CLI:
+
 ```bash
-python "Catalan's Constant.py" --help
+python "Catalan's Constant.py" --digits 1000
 ```
 
-TESTS:
-    pytest tests/
+Run precision benchmarks:
+
+```bash
+python benchmarks/bench_precision.py
+```
+
+Run automated tests:
+
+```bash
+pytest tests/
+```
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
