@@ -25,14 +25,17 @@ decimal expansion of G (OEIS A006752) exactly.
 from __future__ import annotations
 
 import argparse
+import functools
 import math
 import os
 import time
 
+from gmpy2 import mpz
+import mpmath
+
+
 os.environ.setdefault("MPMATH_GMPY2", "1")
 
-import mpmath
-from gmpy2 import mpz
 
 GUARD_DIGITS = 50
 
@@ -57,7 +60,18 @@ def bs_series(num_terms: int) -> tuple[mpz, mpz]:
     Returns:
         (T, Q) — the partial sum equals T / Q.
     """
+    @functools.lru_cache(maxsize=None)
     def bs(a: int, b: int) -> tuple[mpz, mpz, mpz]:
+        """Bs.
+        
+        Args:
+            a:
+            b:
+        
+        Returns:
+            tuple: Result of type tuple
+        
+        """
         if b - a == 1:
             if a == 0:
                 return mpz(1), mpz(1), mpz(1)
